@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class DemoApplication {
 
+	@Autowired
 	private final RestTemplate restTemplate = new RestTemplate();
 
 	public static void main(String[] args) {
@@ -23,9 +24,16 @@ public class DemoApplication {
 	@GetMapping("/getmessage")
 	public String getMessage()
 	{
-		String message = restTemplate.getForObject("http://localhost:8080/message", String.class);
+		String message = restTemplate.getForObject("http://spring-boot-app.spring-boot-app.svc.cluster.local:8080/message", String.class);
 		return "Üzenet a másik apptól: " + message;
 	}
+
+	@GetMapping("/")
+	public String message()
+	{
+		return "Hello world app 2";
+	}
+
 
 	@Bean
 	public RestTemplate restTemplate(){
